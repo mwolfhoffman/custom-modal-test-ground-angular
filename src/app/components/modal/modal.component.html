@@ -1,0 +1,11 @@
+<div id="modalContainer" class="modal"> 
+  <div class="modal-content">
+    <header>
+      {{title}}
+    </header>
+    <div>
+    <ng-container *ngTemplateOutlet="modalContent"></ng-container>
+    <ng-container *ngTemplateOutlet="modalActions"></ng-container>
+  </div>
+</div>
+</div>
