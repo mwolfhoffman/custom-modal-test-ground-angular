@@ -7,16 +7,20 @@ import { ModalService } from './services/modal.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ModalComponent } from './components/modal/modal.component';
 import { ModalContent } from './classes/modal.classes';
+import { TestFormComponent } from './components/test-form/test-form.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ModalComponent
+    ModalComponent,
+    TestFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [
     ModalContent,

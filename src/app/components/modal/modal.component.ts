@@ -16,6 +16,9 @@ export class ModalComponent implements OnInit {
   public content: TemplateRef<HTMLElement>;
   @ViewChild('modalActions') modalActions: TemplateRef<HTMLElement>;
   @ViewChild('modalContent') modalContent: TemplateRef<HTMLElement>;
+  @ViewChild('DisplayStringForModalContentRef') stringContentRef:TemplateRef<HTMLElement>;
+
+  public contentString:string='';
 
   constructor(
     private el: ElementRef,
@@ -29,7 +32,13 @@ export class ModalComponent implements OnInit {
     });
 
     this.modalService.modalContent.subscribe((content) => {
-      this.modalContent = content;
+      if(content && typeof content === 'string'){
+        this.contentString = content;
+        this.modalContent = this.stringContentRef;
+
+      }else if(content && typeof content !== 'string'){
+        this.modalContent = content;
+      }
     });
 
     this.modalService.modalActions.subscribe((actions) => {
@@ -50,6 +59,7 @@ export class ModalComponent implements OnInit {
   closeModal(){
     this.modalService.closeModal();
   }
+
 
 
 }

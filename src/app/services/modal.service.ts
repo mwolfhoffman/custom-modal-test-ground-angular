@@ -7,9 +7,11 @@ import { BehaviorSubject } from "rxjs";
 @Injectable()
 export class ModalService {
 
+
+
     private _modalVisible = new BehaviorSubject<boolean>(false);
     private _modalTitle = new BehaviorSubject<string>(null);
-    private _modalContent = new BehaviorSubject<TemplateRef<HTMLElement>>(null);
+    private _modalContent = new BehaviorSubject<TemplateRef<HTMLElement> | string>(null);
     private _modalActions = new BehaviorSubject<TemplateRef<HTMLElement>>(null);
 
     public modalVisible = this._modalVisible.asObservable();
@@ -33,6 +35,12 @@ export class ModalService {
 
     public closeModal() {
         this._clearAllModalContent()
+    }
+
+    displayError(error) {
+        this._modalVisible.next(true);
+        this._modalTitle.next('Oh no! There was an error');
+        this._modalContent.next('errrrrrrrrrrrrrr')
     }
 
 }

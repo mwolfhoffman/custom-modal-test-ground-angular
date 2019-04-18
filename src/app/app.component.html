@@ -2,7 +2,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-   Custom Modal Test Ground
+    Custom Modal Test Ground
   </h1>
   <img width="300" alt="Angular Logo"
     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
@@ -13,20 +13,18 @@
     <h2><a (click)="showModal()">Show Modal TemplateRef</a></h2>
   </li>
   <li>
-    <h2><a>Show Modal with content/title strings</a></h2>
+    <h2><a (click)="displayError()">Display Error</a></h2>
+  </li>
+  <li>
+    <h2><a (click)="showStringModal()">Show Modal with content/title strings</a></h2>
   </li>
   <li>
     <h2><a>Show Modal with form component</a></h2>
   </li>
 
-  <li>
-    <h2><a>Show Modal with custom actions</a></h2>
-  </li>
+
   <li>
     <h2><a>Show Advanced Modal</a></h2>
-  </li>
-  <li>
-    <h2><a>Display Error</a></h2>
   </li>
 </ul>
 
@@ -34,8 +32,8 @@
 <!-- SAMPLE TEMPLATE REFS -->
 
 <ng-template #SampleTemplateRef>
-    <p>This is a modal. Cool!</p>
-    <p class="scoped-red">this is some red text scoped in the component</p>
+  <p>This is a modal. Cool!</p>
+  <p class="scoped-red">this is some red text scoped in the component</p>
 </ng-template>
 
 <ng-template #SampleActionsRef>
