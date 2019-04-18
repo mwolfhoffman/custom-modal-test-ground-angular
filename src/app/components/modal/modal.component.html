@@ -1,11 +1,13 @@
-<div id="modalContainer" class="modal"> 
+<div id="modalContainer" class="modal">
   <div class="modal-content">
     <header>
       {{title}}
+      <span class="close" (click)="closeModal()" >&times;</span>
     </header>
+    <hr />
     <div>
-    <ng-container *ngTemplateOutlet="modalContent"></ng-container>
-    <ng-container *ngTemplateOutlet="modalActions"></ng-container>
+      <ng-container *ngTemplateOutlet="modalContent"></ng-container>
+      <ng-container *ngTemplateOutlet="modalActions"></ng-container>
+    </div>
   </div>
-</div>
 </div>
