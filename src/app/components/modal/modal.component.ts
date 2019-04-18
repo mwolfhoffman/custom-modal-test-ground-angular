@@ -16,9 +16,9 @@ export class ModalComponent implements OnInit {
   public content: TemplateRef<HTMLElement>;
   @ViewChild('modalActions') modalActions: TemplateRef<HTMLElement>;
   @ViewChild('modalContent') modalContent: TemplateRef<HTMLElement>;
-  @ViewChild('DisplayStringForModalContentRef') stringContentRef:TemplateRef<HTMLElement>;
+  @ViewChild('DisplayStringForModalContentRef') stringContentRef: TemplateRef<HTMLElement>;
 
-  public contentString:string='';
+  public contentString: string = '';
 
   constructor(
     private el: ElementRef,
@@ -27,39 +27,48 @@ export class ModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.modalService.modalTitle.subscribe((title: string) => {
-      this.title = title
-    });
-
-    this.modalService.modalContent.subscribe((content) => {
-      if(content && typeof content === 'string'){
-        this.contentString = content;
-        this.modalContent = this.stringContentRef;
-
-      }else if(content && typeof content !== 'string'){
-        this.modalContent = content;
+    window.onclick = function (event) {
+      let modal = document.getElementById('modalContainer');
+      if(modal){
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
       }
-    });
+    }
 
-    this.modalService.modalActions.subscribe((actions) => {
-      this.modalActions = actions;
-    });
+      this.modalService.modalTitle.subscribe((title: string) => {
+        this.title = title
+      });
 
-    this.modalService.modalVisible.subscribe((isVisible: boolean) => {
-      const modal = document.getElementById('modalContainer');
-      if (isVisible) {
-        this.renderer.setStyle(modal, 'display', 'block');
-      } else {
-        this.renderer.setStyle(modal, 'display', 'none');
-      }
-    });
+      this.modalService.modalContent.subscribe((content) => {
+        if (content && typeof content === 'string') {
+          this.contentString = content;
+          this.modalContent = this.stringContentRef;
+
+        } else if (content && typeof content !== 'string') {
+          this.modalContent = content;
+        }
+      });
+
+      this.modalService.modalActions.subscribe((actions) => {
+        this.modalActions = actions;
+      });
+
+      this.modalService.modalVisible.subscribe((isVisible: boolean) => {
+        const modal = document.getElementById('modalContainer');
+        if (isVisible) {
+          this.renderer.setStyle(modal, 'display', 'block');
+        } else {
+          this.renderer.setStyle(modal, 'display', 'none');
+        }
+      });
+
+    }
+
+    closeModal(){
+      this.modalService.closeModal();
+    }
+
+
 
   }
-
-  closeModal(){
-    this.modalService.closeModal();
-  }
-
-
-
-}
