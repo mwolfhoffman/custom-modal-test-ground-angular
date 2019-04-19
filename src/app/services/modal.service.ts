@@ -15,15 +15,18 @@ export class ModalService {
     private _modalContent = new BehaviorSubject<TemplateRef<HTMLElement> | string | Function>(null);
     private _modalActions = new BehaviorSubject<TemplateRef<HTMLElement>>(null);
     private _modalComponent = new BehaviorSubject<any>(null); // TODO: type this? 
+    private _destroyModal = new BehaviorSubject<boolean>(false);
 
     public modalVisible = this._modalVisible.asObservable();
     public modalTitle = this._modalTitle.asObservable();
     public modalContent = this._modalContent.asObservable();
     public modalActions = this._modalActions.asObservable()
     public modalComponent = this._modalComponent.asObservable();
+    public destroyModal = this._destroyModal.asObservable();
 
     public showModal(modal: ModalType): void {
         this._clearAllModalContent();
+        this._destroyModal.next(false);
         this._modalContent.next(modal.component);
         this._modalActions.next(modal.actonsRef);
         this._modalTitle.next(modal.title);
@@ -32,7 +35,8 @@ export class ModalService {
 
     showModalAdvanced(dialogSettings: DialogSettings, topLevelClasses?: string[]): void {
         this._clearAllModalContent();
-        if(typeof dialogSettings.content=='function'){
+        this._destroyModal.next(false);
+        if (typeof dialogSettings.content == 'function') {
             this._modalComponent.next(dialogSettings.content);
         }
         this._modalVisible.next(true);
@@ -62,6 +66,7 @@ export class ModalService {
 
     public closeModal() {
         this._clearAllModalContent()
+        this._destroyModal.next(true);
     };
 
     displayError(error) {

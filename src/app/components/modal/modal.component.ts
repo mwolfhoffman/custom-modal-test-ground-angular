@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, TemplateRef, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, TemplateRef, Renderer2, ElementRef, ComponentRef } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class ModalComponent implements OnInit {
   @ViewChild('DisplayStringForModalContentRef') stringContentRef: TemplateRef<HTMLElement>;
   @ViewChild('entry', { read: ViewContainerRef }) entry: ViewContainerRef //  used for showing component for modalService.showAdvancedModal();
   public componentToBeDisplayed: any;
+  public componentRef: ComponentRef<{}>;
 
   public contentString: string = '';
 
@@ -67,9 +68,18 @@ export class ModalComponent implements OnInit {
         debugger
         this.componentToBeDisplayed = componentToBeDisplayed;
         let componentFactory = this.resolver.resolveComponentFactory(this.componentToBeDisplayed);
-        let component = this.entry.createComponent(componentFactory);
+        this.componentRef = this.entry.createComponent(componentFactory);
+
       }
     })
+
+    this.modalService.destroyModal.subscribe((shouldDestroy) => {
+      if (this.componentRef && shouldDestroy) {
+        this.componentRef.destroy();
+      }
+    })
+
+
 
   }
   public closeModal(): void {
