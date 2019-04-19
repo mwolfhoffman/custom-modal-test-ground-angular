@@ -1,6 +1,8 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { ModalService } from './services/modal.service';
 import { ModalType } from './classes/modal.classes';
+import { DialogSettings } from './classes/dialog.classes';
+import { TestFormComponent } from './components/test-form/test-form.component';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +12,7 @@ import { ModalType } from './classes/modal.classes';
 export class AppComponent {
   @ViewChild('SampleTemplateRef') sampleTemplateRef: TemplateRef<HTMLElement>;
   @ViewChild('SampleActionsRef') sampleActionsRef: TemplateRef<HTMLElement>;
+  public testFormComponent:TestFormComponent;
 
   constructor(
     private modalService: ModalService
@@ -32,12 +35,26 @@ export class AppComponent {
     this.modalService.displayError(error);
   }
 
-  showStringModal(){
+  showStringModal() {
     let modal = new ModalType();
     modal.title = "Custom string title";
     modal.component = "Yup, you guessed it. Custom string content!";
-  
+
     this.modalService.showModal(modal);
+  }
+
+  showAdvancedModal() {
+
+    let dialogSettings: DialogSettings = {
+      title: "Purchase a Plan",
+      actions: this.sampleActionsRef,
+      content: TestFormComponent
+    }
+
+    this.modalService.showModalAdvanced(dialogSettings, ['purchaseplan-modal']);
+ //   this.testFormComponent = modal.content.instance;
+
+
   }
 
 }

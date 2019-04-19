@@ -1,4 +1,5 @@
-import { TemplateRef, Injectable } from '@angular/core';
+import { TemplateRef, Injectable, ViewContainerRef, ComponentRef } from '@angular/core';
+import { Observable } from 'rxjs';
 
 abstract class Modal{
     message?: string;
@@ -17,3 +18,4 @@ export class ModalType extends Modal {
 
 @Injectable()
 export class ModalContent extends Modal{}
+

@@ -27,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     ModalService
   ],
   entryComponents:[
-    ModalComponent
+    ModalComponent,
+    TestFormComponent
   ],
   bootstrap: [AppComponent]
 })
