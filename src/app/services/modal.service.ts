@@ -16,6 +16,7 @@ export class ModalService {
     private _modalActions = new BehaviorSubject<TemplateRef<HTMLElement>>(null);
     private _modalComponent = new BehaviorSubject<any>(null); // TODO: type this? 
     private _destroyModal = new BehaviorSubject<boolean>(false);
+    private _topLevelClasses = new BehaviorSubject<string[]>([]);
 
     public modalVisible = this._modalVisible.asObservable();
     public modalTitle = this._modalTitle.asObservable();
@@ -23,6 +24,8 @@ export class ModalService {
     public modalActions = this._modalActions.asObservable()
     public modalComponent = this._modalComponent.asObservable();
     public destroyModal = this._destroyModal.asObservable();
+    public topLevelClasses = this._topLevelClasses.asObservable();
+
 
     public showModal(modal: ModalType): void {
         this._clearAllModalContent();
@@ -44,17 +47,7 @@ export class ModalService {
         this._modalActions.next(dialogSettings.actions);
         this._modalTitle.next(dialogSettings.title);
         this._modalVisible.next(true);
-
-        //  let componentDialog = new DialogRef();
-
-        // if (topLevelClasses) {
-        //   topLevelClasses.forEach(topLevelClass => {
-        //     componentDialog.dialog.location.nativeElement.classList.add(topLevelClass);
-        //   });
-        // }
-
-        //  this.listenForDialogEvents();
-        //  return componentDialog;
+        this._topLevelClasses.next(topLevelClasses);
     }
 
     private _clearAllModalContent() {
@@ -62,6 +55,7 @@ export class ModalService {
         this._modalContent.next(null);
         this._modalActions.next(null);
         this._modalTitle.next(null);
+        this._topLevelClasses.next([]);
     };
 
     public closeModal() {

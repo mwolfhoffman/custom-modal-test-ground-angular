@@ -71,15 +71,22 @@ export class ModalComponent implements OnInit {
         this.componentRef = this.entry.createComponent(componentFactory);
 
       }
-    })
+    });
 
     this.modalService.destroyModal.subscribe((shouldDestroy) => {
       if (this.componentRef && shouldDestroy) {
         this.componentRef.destroy();
       }
-    })
+    });
 
-
+    this.modalService.topLevelClasses.subscribe((topLevelClasses: string[]) => {
+      if (topLevelClasses && topLevelClasses.length) {
+        topLevelClasses.forEach((className: string) => {
+          const modal = document.getElementById('modalContainer');
+          this.renderer.addClass(modal, className);
+        });
+      }
+    });
 
   }
   public closeModal(): void {
